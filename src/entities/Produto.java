@@ -33,11 +33,19 @@ public class Produto {
                 '}';
     }
 
-    public static boolean staticProdutoPredicate(Produto p){
+    public static boolean staticProdutoPredicate(Produto p) {
         return p.getPreco() >= 100.00;
     }
 
-    public boolean nonStaticProdutoPredicate(){
+    public boolean nonStaticProdutoPredicate() {
         return this.preco >= 100.00;
+    }
+
+    public static void staticAtualizarPreco(Produto p) {
+        p.setPreco(p.getPreco() * 1.1);
+    }
+
+    public void nonStaticAtualizarPreco() {
+        this.preco = this.preco * 1.1;
     }
 }

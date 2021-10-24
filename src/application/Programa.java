@@ -1,10 +1,12 @@
 package application;
 
+import consumers.ProdutoConsumer;
 import entities.Produto;
 import predicates.ProdutoPredicate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class Programa {
@@ -16,6 +18,8 @@ public class Programa {
         produtos.add(new Produto("TV", 4500.00));
         produtos.add(new Produto("Mouse Logitech Super", 900.00));
         produtos.add(new Produto("HD Case", 80.00));
+
+        // Predicados
 
         // Método 1
         produtos.removeIf(produto -> produto.getPreco() >= 100.00);
@@ -30,5 +34,22 @@ public class Programa {
         produtos.removeIf(predicate);
 
         produtos.forEach(System.out::println);
+
+        // Consumers
+
+        // Método 1
+        produtos.forEach(new ProdutoConsumer());
+        // Método 2
+        produtos.forEach(Produto::staticAtualizarPreco);
+        // Método 3
+        produtos.forEach(Produto::nonStaticAtualizarPreco);
+        // Método 4
+        Consumer<Produto> consumer = p -> {
+            p.setPreco(p.getPreco() * 1.1);
+        };
+        consumer = p -> p.setPreco(p.getPreco() * 1.1);
+        produtos.forEach(consumer);
+        // Método 5
+        produtos.forEach(p -> p.setPreco(p.getPreco() * 1.1));
     }
 }
