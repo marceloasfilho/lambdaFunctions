@@ -3,6 +3,7 @@ package application;
 import consumers.ProdutoConsumer;
 import entities.Produto;
 import functions.ObterNomes;
+import model.services.ProdutoService;
 import predicates.ProdutoPredicate;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class Programa {
         produtos.add(new Produto("TV", 4500.00));
         produtos.add(new Produto("Mouse Logitech Super", 900.00));
         produtos.add(new Produto("HD Case", 80.00));
+
+        List<Produto> produtos2 = new ArrayList<>(produtos);
 
         // Predicados
 
@@ -69,5 +72,11 @@ public class Programa {
         nomesProdutos = produtos.stream().map(function).collect(Collectors.toList());
         // Método 5
         nomesProdutos = produtos.stream().map(p -> p.getNome().toUpperCase()).collect(Collectors.toList());
+
+        // Function como parâmetro de chamada de método
+
+        ProdutoService produtoService = new ProdutoService();
+        Double soma = produtoService.somaPrecoPorCriterio(produtos2, p -> p.getNome().charAt(0) == 'T');
+        System.out.println("Soma dos preços = " + soma);
     }
 }
