@@ -48,4 +48,12 @@ public class Produto {
     public void nonStaticAtualizarPreco() {
         this.preco = this.preco * 1.1;
     }
+
+    public static String staticObterNomes(Produto p) {
+        return p.getNome().toUpperCase();
+    }
+
+    public String nonStaticObterNomes() {
+        return this.nome.toUpperCase();
+    }
 }

@@ -2,12 +2,15 @@ package application;
 
 import consumers.ProdutoConsumer;
 import entities.Produto;
+import functions.ObterNomes;
 import predicates.ProdutoPredicate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Programa {
     public static void main(String[] args) {
@@ -51,5 +54,20 @@ public class Programa {
         produtos.forEach(consumer);
         // Método 5
         produtos.forEach(p -> p.setPreco(p.getPreco() * 1.1));
+
+        // Functions
+
+        // Método 1
+        List<String> nomesProdutos = produtos.stream().map(new ObterNomes()).collect(Collectors.toList());
+        nomesProdutos.forEach(System.out::println);
+        // Método 2
+        nomesProdutos = produtos.stream().map(Produto::staticObterNomes).collect(Collectors.toList());
+        // Método 3
+        nomesProdutos = produtos.stream().map(Produto::nonStaticObterNomes).collect(Collectors.toList());
+        // Método 4
+        Function<Produto, String> function = p -> p.getNome().toUpperCase();
+        nomesProdutos = produtos.stream().map(function).collect(Collectors.toList());
+        // Método 5
+        nomesProdutos = produtos.stream().map(p -> p.getNome().toUpperCase()).collect(Collectors.toList());
     }
 }
